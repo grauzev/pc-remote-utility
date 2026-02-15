@@ -1,7 +1,7 @@
 # PC Remote Utility Documentation
 
 This folder contains the project documentation:
-- what I build (requirements),
+- what we build (requirements),
 - how it is structured (architecture, concurrency),
 - how commands are defined (commands.json format, scenes),
 - how the web remote and API work (including Siri/Shortcuts),
@@ -19,4 +19,4 @@ This folder contains the project documentation:
 8) HTTP API — api.md  
 9) Siri / Shortcuts — siri-shortcuts.md  
 10) Security — security.md  
-11) Roadmap — roadmap.md[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[B[B[D[D[D[D[D[D[D[D[D[D[D[D[D[DI[C[C[[C[I[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[ I[B[B[B[B[B[B[B[B[B[B[B[B[B[B[B[B[B[B[B[B[D[D[D[D[D[D
+11) Roadmap — roadmap.md
