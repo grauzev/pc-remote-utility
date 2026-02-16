@@ -26,3 +26,4 @@ build/
 # ---- Local app data (do not commit secrets) ----
 data/*
 !data/.gitkeep
+_tmp/
