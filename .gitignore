@@ -1,0 +1,28 @@
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- IDE: Eclipse ----
+.classpath
+.project
+.settings/
+.metadata/
+.recommenders/
+*.launch
+
+# ---- IDE: IntelliJ (just in case) ----
+.idea/
+*.iml
+out/
+
+# ---- Java build outputs ----
+target/
+build/
+*.class
+
+# ---- Logs ----
+*.log
+
+# ---- Local app data (do not commit secrets) ----
+data/*
+!data/.gitkeep
