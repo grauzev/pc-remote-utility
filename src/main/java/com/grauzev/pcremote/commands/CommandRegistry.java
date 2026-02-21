@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 
+/**
+ * In-memory store of commands indexed by command id.
+ * Loads commands on startup (dev seed for now) and provides lookup/list access.
+ */
+
 @Component
 public class CommandRegistry {
 	

@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.grauzev.pcremote.commands.Command;
 import com.grauzev.pcremote.commands.CommandRegistry;
 
+/**
+ * HTTP API for command listing and execution endpoints.
+ * Web remote and Siri/Shortcuts will call these endpoints.
+ */
+
 @RestController
 public class CommandsController {
 	

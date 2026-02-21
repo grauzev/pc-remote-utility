@@ -1,5 +1,10 @@
 package com.grauzev.pcremote.commands;
 
+/**
+ * Command definition exposed via API and used by the executor.
+ * Contains a stable id, a title and a command type.
+ */
+
 public class Command {
 
 	private String id;
