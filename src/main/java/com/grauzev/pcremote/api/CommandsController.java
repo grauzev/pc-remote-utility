@@ -20,9 +20,11 @@ import com.grauzev.pcremote.commands.CommandRegistry;
 @RestController
 public class CommandsController {
 	
+	// === Variables ===
 	private final CommandRegistry commandRegistry;
 	private final CommandExecutor commandExecutor;
 	
+	// === Constructor ===
 	public CommandsController(CommandRegistry commandRegistry, CommandExecutor commandExecutor) {
 		this.commandRegistry = commandRegistry;
 		this.commandExecutor = commandExecutor;
@@ -34,14 +36,14 @@ public class CommandsController {
 	}
 	
 	@PostMapping("/api/commands/{id}/execute")
-	public ResponseEntity<String> execute(@PathVariable String id) {
+	public ResponseEntity<ExecuteResponse> execute(@PathVariable String id) {
 		Command command = commandRegistry.getById(id);
 		if (command == null) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.status(404).body(new ExecuteResponse("not_found", id, "command not found"));
 		}
 		
 		commandExecutor.execute(command);
-		return ResponseEntity.ok("executed");
+		return ResponseEntity.ok(new ExecuteResponse("ok", id, "executed"));
 	}
 
 }
