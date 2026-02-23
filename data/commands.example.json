@@ -1,0 +1,15 @@
+{
+	"schemaVersion": 1,
+	"commands": [
+		{
+			"id": "app_steam",
+			"title": "Open Steam",
+			"type": "app"
+		},
+		{
+			"id": "display_tv",
+			"title": "Switch to TV",
+			"type": "scene"
+		}
+	]
+}
