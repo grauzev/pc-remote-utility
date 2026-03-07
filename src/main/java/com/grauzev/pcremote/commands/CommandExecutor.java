@@ -12,7 +12,9 @@ public class CommandExecutor {
 	
 	public void execute(Command command) {
 		//STUB: real OS execution will be implemented later.
-		System.out.println("Executing command: " + command);
+		System.out.println("Executing command id: " + command.getId());
+		System.out.println("Command type: " + command.getType());
+		System.out.println("Command target: " + command.getTarget());
 	}
 
 }
