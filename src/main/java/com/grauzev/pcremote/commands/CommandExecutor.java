@@ -1,5 +1,7 @@
 package com.grauzev.pcremote.commands;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,10 +13,17 @@ import org.springframework.stereotype.Component;
 public class CommandExecutor {
 	
 	public void execute(Command command) {
-		//STUB: real OS execution will be implemented later.
-		System.out.println("Executing command id: " + command.getId());
-		System.out.println("Command type: " + command.getType());
-		System.out.println("Command target: " + command.getTarget());
+		if (!"shell".equals(command.getType())) {
+			System.out.println("Skipping non-shell command: " + command.getId());
+			return;
+		}
+		
+		try {
+			new ProcessBuilder("cmd.exe", "/c", command.getTarget()).start();
+			System.out.println("Started shellcommand: " + command.getTarget());
+		} catch (IOException e) {
+			throw new IllegalStateException("Failed to execute shell command: " + command.getTarget(), e);
+		}
 	}
 
 }
