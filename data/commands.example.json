@@ -4,12 +4,14 @@
 		{
 			"id": "app_steam",
 			"title": "Open Steam",
-			"type": "app"
+			"type": "app",
+			"target": "C\\Path\\To\\Steam.exe"
 		},
 		{
 			"id": "display_tv",
 			"title": "Switch to TV",
-			"type": "scene"
+			"type": "shell",
+			"target": "C\\Path\\To\\TV_ONLY.bat"
 		}
 	]
 }

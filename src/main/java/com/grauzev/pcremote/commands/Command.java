@@ -10,20 +10,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Command {
 
+	// === Variables ===
 	private String id;
 	private String title;
 	private String type;
+	private String target;
 	
 	// === Constructor ===
 	@JsonCreator
 	public Command(
-					@JsonProperty("id")String id, 
-					@JsonProperty("title")String title, 
-					@JsonProperty("type")String type) {
+					@JsonProperty("id") String id, 
+					@JsonProperty("title") String title, 
+					@JsonProperty("type") String type,
+					@JsonProperty("target") String target) {
 		this.id = id;
 		this.title = title;
 		this.type = type;
+		this.target = target;
 	}
+	
+	// === Getters ====
 	
 	public String getId() {
 		return id;
@@ -37,8 +43,12 @@ public class Command {
 		return type;
 	}
 	
+	public String getTarget() {
+		return target;
+	}
+	
 	@Override
 	public String toString() {
-		return "Command{id='" + id + "', title='" + "', type='" + type + "'}";
+		return "Command{id='" + id + "', title='" + title + "', type='" + type + "', target='" + target + "'}";
 	}
 }
