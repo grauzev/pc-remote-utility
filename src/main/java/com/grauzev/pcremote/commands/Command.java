@@ -1,5 +1,8 @@
 package com.grauzev.pcremote.commands;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Command definition exposed via API and used by the executor.
  * Contains a stable id, a title and a command type.
@@ -11,7 +14,12 @@ public class Command {
 	private String title;
 	private String type;
 	
-	public Command(String id, String title, String type) {
+	// === Constructor ===
+	@JsonCreator
+	public Command(
+					@JsonProperty("id")String id, 
+					@JsonProperty("title")String title, 
+					@JsonProperty("type")String type) {
 		this.id = id;
 		this.title = title;
 		this.type = type;

@@ -1,5 +1,7 @@
 package com.grauzev.pcremote.commands;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +21,12 @@ public class CommandRegistry {
 	// === State ===
 	private Map<String, Command> commandsById;
 	
+	// === Variables ===
+	private final CommandFileLoader commandFileLoader;
+	
 	// === Constructor ===
-	public CommandRegistry() {
+	public CommandRegistry(CommandFileLoader commandFileLoader) {
+		this.commandFileLoader = commandFileLoader;
 		this.commandsById = new HashMap<>();
 	}
 	
@@ -40,18 +46,17 @@ public class CommandRegistry {
 		return List.copyOf(commandsById.values());
 	}
 	
-	// DEV ONLY: Temporary in-memory commands to validate API/UI wiring.
-	//Remove after implementing JSON loading (commands.json)
-	public void seedDevData() {
-		add(new Command("display_tv", "Switch to TV", "scene"));
-		add(new Command("app_steam", "Open Steam", "app"));
-	}
-	
 	// === Lifecycle ===
 	@PostConstruct
 	void init() {
-		//DEV ONLY: seed test commands for development.
-		seedDevData();
+		try {
+			CommandFileContent fileContent = commandFileLoader.load(Path.of("data", "commands.json"));
+			for (Command command : fileContent.getCommands()) {
+				add(command);
+			}
+		} catch (IOException e) {
+			throw new IllegalStateException("Failed to load commands from data/commands.json", e);
+		}
 	}
 
 }
