@@ -1,17 +1,35 @@
 {
-	"schemaVersion": 1,
-	"commands": [
-		{
-			"id": "app_steam",
-			"title": "Open Steam",
-			"type": "app",
-			"target": "C\\Path\\To\\Steam.exe"
-		},
-		{
-			"id": "display_tv",
-			"title": "Switch to TV",
-			"type": "shell",
-			"target": "C\\Path\\To\\TV_ONLY.bat"
-		}
-	]
+  "schemaVersion": 1,
+  "commands": [
+    {
+      "id": "app_steam",
+      "title": "Open Steam",
+      "type": "app",
+      "target": "C:\\Path\\To\\Steam.exe"
+    },
+    {
+      "id": "display_tv",
+      "title": "Switch to TV",
+      "type": "shell",
+      "target": "C:\\Path\\To\\TV_ONLY.bat"
+    },
+    {
+      "id": "display_work",
+      "title": "Switch to Work Mode",
+      "type": "shell",
+      "target": "C:\\Path\\To\\WORK.bat"
+    },
+    {
+      "id": "audio_tv",
+      "title": "Audio to TV",
+      "type": "shell",
+      "target": "C:\\Path\\To\\audio_TV.bat"
+    },
+    {
+      "id": "audio_pc",
+      "title": "Audio to PC",
+      "type": "shell",
+      "target": "C:\\Path\\To\\audio_PC.bat"
+    }
+  ]
 }
