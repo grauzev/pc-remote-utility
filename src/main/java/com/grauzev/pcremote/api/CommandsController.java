@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.grauzev.pcremote.commands.Command;
 import com.grauzev.pcremote.commands.CommandExecutor;
 import com.grauzev.pcremote.commands.CommandRegistry;
+import com.grauzev.pcremote.commands.ExecutionResult;
 
 /**
  * HTTP API for command listing and execution endpoints.
@@ -42,8 +43,11 @@ public class CommandsController {
 			return ResponseEntity.status(404).body(new ExecuteResponse("not_found", id, "command not found"));
 		}
 		
-		commandExecutor.execute(command);
-		return ResponseEntity.ok(new ExecuteResponse("ok", id, "executed"));
+		ExecutionResult result = commandExecutor.execute(command);
+		return ResponseEntity.ok(new ExecuteResponse(
+				result.isSuccess() ? "ok" : "error",
+				id,
+				result.getMessage()));
 	}
 
 }

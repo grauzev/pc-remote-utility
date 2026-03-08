@@ -12,17 +12,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandExecutor {
 	
-	public void execute(Command command) {
+	public ExecutionResult execute(Command command) {
 		if (!"shell".equals(command.getType())) {
-			System.out.println("Skipping non-shell command: " + command.getId());
-			return;
+			return new ExecutionResult(false, "unsupported command type");
 		}
 		
 		try {
 			new ProcessBuilder("cmd.exe", "/c", command.getTarget()).start();
-			System.out.println("Started shellcommand: " + command.getTarget());
+			System.out.println("Started shell command: " + command.getTarget());
+			return new ExecutionResult(true, "executed");
 		} catch (IOException e) {
-			throw new IllegalStateException("Failed to execute shell command: " + command.getTarget(), e);
+			return new ExecutionResult(false, "Failed to execute shell command");
 		}
 	}
 
