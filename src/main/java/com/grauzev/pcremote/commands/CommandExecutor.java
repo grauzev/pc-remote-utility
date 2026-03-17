@@ -1,6 +1,8 @@
 package com.grauzev.pcremote.commands;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,13 @@ import org.springframework.stereotype.Component;
 public class CommandExecutor {
 	
 	public ExecutionResult execute(Command command) {
+		if (command.getTarget() == null || command.getTarget().isBlank()) {
+			return new ExecutionResult(false, "command target is empty");
+		}
+		
+		if (!Files.exists(Path.of(command.getTarget()))) {
+			return new ExecutionResult(false, "command target does not exist");
+		}
 		try {
 			if ("shell".equals(command.getType())) {
 				new ProcessBuilder("cmd.exe", "/c", command.getTarget()).start();
