@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Remote</title>
+</head>
+<body>
+    <h1>PC Remote</h1>
+    
+    <label for="tokenInput">API Token:</label>
+    <input id="tokenInput" type="password" placeholder="Enter API token">
+
+    <button id="loadCommandsButton">Load Commands</button>
+
+    <div id="statusMessage"></div>
+    <div id="commandsContainer"></div>
+    
+    <script>
+    	const tokenInput = document.getElementById("tokenInput");
+    	const loadCommandsButton = document.getElementById("loadCommandsButton");
+    	const statusMessage = document.getElementById("statusMessage");
+    	const commandsContainer = document.getElementById("commandsContainer");
+    	
+    	function setStatus(message) {
+    		statusMessage.textContent = message;
+    	}
+    	
+    	loadCommandsButton.addEventListener("click", async function () {
+    		const token = tokenInput.value.trim();
+    		
+    		if (!token) {
+    			setStatus("API token is required.");
+    			return;
+    		}
+    		
+    		setStatus("Loading commands...");
+    		
+    		const response = await fetch("/api/commands", {
+    			headers: {
+    				"X-API-Token": token
+    			}
+    		});
+    		
+    		if (!response.ok) {
+    			setStatus("Failed to load commands.HTTP " + response.status);
+    			return;
+    		}
+    		
+    		const commands = await response.json();
+    		commandsContainer.innerHTML = "";
+    		
+    		for (const command of commands) {
+    			const button = document.createElement("button");
+    			button.textContent = command.title;
+    			button.style.display = "block";
+    			button.style.marginBottom = "8px";
+    			button.style.width = "100%";
+    			button.style.fontSize = "18px";
+    			button.style.padding = "12px";
+    			
+    			button.addEventListener("click", async function () {
+    				setStatus("Executing " + command.title + "...");
+    				
+    				const response = await fetch("/api/commands/" + command.id + "/execute", {
+    					method: "POST",
+    					headers: {
+    						"X-API-Token": token
+    					}
+    				});
+    				
+    				const result = await response.json();
+    				
+    				if (!response.ok) {
+    					setStatus("Failed: HTTP " + response.status);
+    					return;
+    				}
+    				
+    				setStatus(command.title + ": " + result.message);
+    			});
+    			
+    			commandsContainer.appendChild(button);
+    		}
+    		
+    		setStatus("Loaded " + commands.length + " commands.");
+    	});
+	</script>
+</body>
+</html>
