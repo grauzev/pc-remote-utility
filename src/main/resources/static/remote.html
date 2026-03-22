@@ -17,10 +17,17 @@
     <div id="commandsContainer"></div>
     
     <script>
+    	const TOKEN_STORAGE_KEY = "pcRemoteApiToken";
+    	
     	const tokenInput = document.getElementById("tokenInput");
     	const loadCommandsButton = document.getElementById("loadCommandsButton");
     	const statusMessage = document.getElementById("statusMessage");
     	const commandsContainer = document.getElementById("commandsContainer");
+    	
+    	const savedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
+    	if (savedToken) {
+    		tokenInput.value = savedToken;
+    	}
     	
     	function setStatus(message) {
     		statusMessage.textContent = message;
@@ -46,6 +53,8 @@
     			setStatus("Failed to load commands.HTTP " + response.status);
     			return;
     		}
+    		
+    		localStorage.setItem(TOKEN_STORAGE_KEY, token);
     		
     		const commands = await response.json();
     		commandsContainer.innerHTML = "";
