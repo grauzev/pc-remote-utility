@@ -73,5 +73,10 @@ public class CommandRegistry {
 	void init() {
 		replaceCommands(loadCommandsFromFile());
 	}
+	
+	// Reloads commands from commands.json and replaces the active registry state
+	public void reload() {
+		replaceCommands(loadCommandsFromFile());
+	}
 
 }
