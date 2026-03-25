@@ -63,10 +63,15 @@ public class CommandRegistry {
 		}
 	}
 	
+	// Replaces the active command registry with a newly loaded command map
+	private void replaceCommands(Map<String, Command> loadedCommands) {
+		commandsById = loadedCommands;
+	}
+	
 	// === Lifecycle ===
 	@PostConstruct
 	void init() {
-		commandsById = loadCommandsFromFile();
+		replaceCommands(loadCommandsFromFile());
 	}
 
 }
