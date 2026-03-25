@@ -46,17 +46,27 @@ public class CommandRegistry {
 		return List.copyOf(commandsById.values());
 	}
 	
-	// === Lifecycle ===
-	@PostConstruct
-	void init() {
+	// Loads validated commands from commands.json into a new map instance
+	private Map<String, Command> loadCommandsFromFile() {
 		try {
 			CommandFileContent fileContent = commandFileLoader.load(Path.of("data", "commands.json"));
+			
+			Map<String, Command> loadedCommands = new HashMap<>();
+			
 			for (Command command : fileContent.getCommands()) {
-				add(command);
+				loadedCommands.put(command.getId(), command);
 			}
+			
+			return loadedCommands;
 		} catch (IOException e) {
 			throw new IllegalStateException("Failed to load commands from data/commands.json", e);
 		}
+	}
+	
+	// === Lifecycle ===
+	@PostConstruct
+	void init() {
+		commandsById = loadCommandsFromFile();
 	}
 
 }
