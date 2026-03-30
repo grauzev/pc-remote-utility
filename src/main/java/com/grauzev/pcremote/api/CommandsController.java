@@ -36,6 +36,14 @@ public class CommandsController {
 		return commandRegistry.getAll();
 	}
 	
+	// Reloads commands from commands.json into the active command registry
+	@PostMapping("/api/commands/reload")
+	public ReloadCommandsResponse reloadCommands() {
+		commandRegistry.reload();
+		
+		return new ReloadCommandsResponse("success", "Commands reloaded succesfully.");
+	}
+	
 	@PostMapping("/api/commands/{id}/execute")
 	public ResponseEntity<ExecuteResponse> execute(@PathVariable String id) {
 		Command command = commandRegistry.getById(id);
