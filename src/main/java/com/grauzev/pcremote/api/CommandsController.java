@@ -2,6 +2,7 @@ package com.grauzev.pcremote.api;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +39,14 @@ public class CommandsController {
 	
 	// Reloads commands from commands.json into the active command registry
 	@PostMapping("/api/commands/reload")
-	public ReloadCommandsResponse reloadCommands() {
-		commandRegistry.reload();
-		
-		return new ReloadCommandsResponse("success", "Commands reloaded succesfully.");
+	public ResponseEntity<ReloadCommandsResponse> reloadCommands() {
+		try {
+			commandRegistry.reload();
+			
+			return ResponseEntity.ok(new ReloadCommandsResponse("success", "Commands reloaded successfully."));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ReloadCommandsResponse("error", e.getMessage()));
+		}
 	}
 	
 	@PostMapping("/api/commands/{id}/execute")
