@@ -1,6 +1,7 @@
 package com.grauzev.pcremote.commands;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -63,6 +64,13 @@ public class CommandFileLoader {
 		}
 	}
 	
+	// Validates that the command target exists in the file system
+	private void validateTargetExists(Command command) {
+		if (!Files.exists(Path.of(command.getTarget()))) {
+			throw new IllegalArgumentException("Command target does not exist for command id '" + command.getId() + "': " + command.getTarget());
+		}
+	}
+	
 	// Validates required command fields loaded from commands.json
 	private void validateCommand(Command command) {
 		if (command == null) {
@@ -90,6 +98,7 @@ public class CommandFileLoader {
 		}
 		
 		validateTargetPath(command);
+		validateTargetExists(command);
 	}
 	
 	// Validates that command ids are unique within commands.json
