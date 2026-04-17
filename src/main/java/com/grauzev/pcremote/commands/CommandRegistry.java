@@ -2,7 +2,7 @@ package com.grauzev.pcremote.commands;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class CommandRegistry {
 	// === Constructor ===
 	public CommandRegistry(CommandFileLoader commandFileLoader) {
 		this.commandFileLoader = commandFileLoader;
-		this.commandsById = new HashMap<>();
+		this.commandsById = new LinkedHashMap<>();
 	}
 	
 	
@@ -51,7 +51,7 @@ public class CommandRegistry {
 		try {
 			CommandFileContent fileContent = commandFileLoader.load(Path.of("data", "commands.json"));
 			
-			Map<String, Command> loadedCommands = new HashMap<>();
+			Map<String, Command> loadedCommands = new LinkedHashMap<>();
 			
 			for (Command command : fileContent.getCommands()) {
 				loadedCommands.put(command.getId(), command);
@@ -65,7 +65,7 @@ public class CommandRegistry {
 	
 	// Replaces the active command registry with a newly loaded command map
 	private void replaceCommands(Map<String, Command> loadedCommands) {
-		commandsById = loadedCommands;
+		commandsById = new LinkedHashMap<>(loadedCommands);
 	}
 	
 	// === Lifecycle ===
