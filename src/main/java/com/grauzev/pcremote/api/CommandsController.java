@@ -33,8 +33,12 @@ public class CommandsController {
 	}
 	
 	@GetMapping("/api/commands")
-	public List<Command> getCommands() {
-		return commandRegistry.getAll();
+	public List<RuntimeCommandResponse> getCommands() {
+		return commandRegistry.getAll().stream()
+				.map(command -> new RuntimeCommandResponse(
+						command.getId(),
+						command.getTitle(),
+						command.getType())).toList();
 	}
 	
 	// Reloads commands from commands.json into the active command registry
