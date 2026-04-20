@@ -1,0 +1,13 @@
+{
+  "name": "pc-remote-utility-desktop",
+  "version": "0.1.0",
+  "description": "Electron desktop app for pc-remote-utility",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "41.2.1"
+  }
+}

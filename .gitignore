@@ -28,3 +28,9 @@ data/*
 !data/.gitkeep
 !data/commands.example.json
 _tmp/
+
+# ---- VS Code ----
+.vscode/
+
+# ---- Desktop app / Node.js ----
+desktop-app/node_modules/
